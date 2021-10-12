@@ -1,0 +1,20 @@
+<h1>Books#show</h1>
+<% if @book.user == current_user%>
+  <%= link_to 'edit_post', edit_book_path(@book), class: 'btn btn-success' %>
+<% end %>
+<%= link_to 'Go back', books_path, class: 'btn btn-warning' %>
+
+<div class="py-3">
+  <div class="py-4">
+  <% if @book.image? %>
+    <%= image_tag @book.image.url, class: 'w-100', style: 'height: 600px; object-fit: cover;' %>
+  <% else %>
+    <%= image_tag 'no_image_square.jpeg', class: 'w-100', style: 'height: 600px; object-fit: cover;' %>
+  <% end %>
+  </div>
+  <h2 class='h2'><%= @book.title %></h2>
+
+  <div class="py-3 text-break" style='max-width: 100%; '>
+    <%= @book.description %>
+  </div>
+</div>

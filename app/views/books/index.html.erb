@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">Navbar</a>
+  <%# <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form> %>
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :title_cont %>
+    <%= f.submit %>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to 'new_post', new_book_path, class: 'btn btn-success' %>
+    <%= link_to  user_path(current_user) do %>
+      <%= image_tag current_user.image.url, class: 'rounded-circle', style: 'width: 60px; height: auto' %>
+    <% end %>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-outline-warning' %>
+    <%= link_to 'サインアップ', new_user_registration_path, class: 'btn btn-warning' %>
+  <% end %>
+</nav>
+<div class="row py-3">
+  <% @books.each do |book| %>
+    <div class="col-md-4">
+      <%= link_to book_path(book) do %>
+        <div class="card my-2">
+          <% if book.image? %>
+            <%= image_tag book.image.url, class: 'card-img-top', style: "width: 100%; object-fit: cover;"%>
+          <% else %>
+            <%= image_tag 'no_image_square.jpeg', class: 'card-img-top' %>
+          <% end %>
+          <div class="card-body">
+            <h2 class='card-title text-truncate'><%= book.title %></h2>
+            <p class='card-text'><%= book.user.name %></p>
+            <p class='card-text text-truncate'><%= book.description %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
