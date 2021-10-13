@@ -1,9 +1,5 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">Navbar</a>
-  <%# <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form> %>
   <%= search_form_for @q do |f| %>
     <%= f.search_field :title_cont %>
     <%= f.submit %>
@@ -19,6 +15,7 @@
     <%= link_to 'サインアップ', new_user_registration_path, class: 'btn btn-warning' %>
   <% end %>
 </nav>
+
 <div class="row py-3">
   <% @books.each do |book| %>
     <div class="col-md-4">
@@ -39,3 +36,4 @@
     </div>
   <% end %>
 </div>
+
