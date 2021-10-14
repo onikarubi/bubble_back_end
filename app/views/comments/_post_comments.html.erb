@@ -1,9 +1,0 @@
-<% comments.each do |comment| %>
-  <div class="border border-primary mb-3 p-2">
-    <div class="commet-heading d-flex align-items-center">
-      <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: auto;' %>
-      <h4 class="text-success mx-2"><%= comment.user.name %></h4>
-    </div>
-    <p class='my-3'><%= comment.comment_content %></p>
-  </div>
-<% end %>

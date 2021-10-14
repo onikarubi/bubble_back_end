@@ -1,9 +1,9 @@
 
 
-$(".comments").html("<%= j(render 'comments/post_comments', comments: @comments) %>");
+$(".comments").html("<%= j(render 'comments/index', comments: @comments) %>");
 
 $('textarea').val('');
-$('input').val('');
+<%# $('input').val(''); %>
 
 
 console.log('rendering')

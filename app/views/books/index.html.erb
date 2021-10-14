@@ -4,10 +4,15 @@
     <%= f.search_field :title_cont %>
     <%= f.submit %>
   <% end %>
+
   <% if user_signed_in? %>
     <%= link_to 'new_post', new_book_path, class: 'btn btn-success' %>
     <%= link_to  user_path(current_user) do %>
-      <%= image_tag current_user.image.url, class: 'rounded-circle', style: 'width: 60px; height: auto' %>
+      <% if current_user.image? %>
+        <%= image_tag current_user.image.url, class: 'rounded-circle', style: 'width: 60px; height: 60px; object-fit: cover;' %>
+      <% else %>
+        <%= image_tag 'no_image_square.jpeg', class: 'rounded-circle',  style: 'width: 60px; height: 60px' %>
+      <% end %>
     <% end %>
     <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
   <% else %>
@@ -15,6 +20,7 @@
     <%= link_to 'サインアップ', new_user_registration_path, class: 'btn btn-warning' %>
   <% end %>
 </nav>
+
 
 <div class="row py-3">
   <% @books.each do |book| %>

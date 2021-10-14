@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: %i[show index]
 
   def index
     @q = Book.ransack(params[:q])
@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @comments = @book.comments.includes(:user)
-    @comment = current_user.comments.new
+    @comment = current_user.comments.new if user_signed_in?
   end
 
   def new
@@ -28,9 +28,7 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
-    if @book.user != current_user
-      redirect_to books_path
-    end
+    redirect_to books_path if @book.user != current_user
   end
 
   def update
