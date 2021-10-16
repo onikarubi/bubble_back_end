@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">Navbar</a>
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :title_cont %>
+    <%= f.submit %>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to 'new_post', new_book_path, class: 'btn btn-success' %>
+    <%= link_to  user_path(current_user) do %>
+      <% if current_user.image? %>
+        <%= image_tag current_user.image.url, class: 'rounded-circle', style: 'width: 60px; height: 60px; object-fit: cover;' %>
+      <% else %>
+        <%= image_tag current_user.image.url, class: 'rounded-circle',  style: 'width: 60px; height: 60px' %>
+      <% end %>
+    <% end %>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-outline-warning' %>
+    <%= link_to 'サインアップ', new_user_registration_path, class: 'btn btn-warning' %>
+  <% end %>
+</nav>

@@ -1,9 +1,5 @@
 <h1>Users#show</h1>
-<% if @user.image? %>
   <%= image_tag @user.image.url %>
-<% else %>
-  <%= image_tag 'no_image_square.jpeg' %>
-<% end %>
 <h3>ユーザー名</h3>
 <%= @user.name %>
 <h3>メールアドレス</h3>

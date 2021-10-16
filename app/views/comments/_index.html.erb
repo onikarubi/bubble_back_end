@@ -4,6 +4,8 @@
       <div class="commet-heading d-flex align-items-center">
         <% if comment.user.image? %>
         <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
+        <% else %>
+        <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
         <% end %>
         <h5 class="text-success mx-2 mb-0"><%= comment.user.name %></h5>
         <p class='mb-0 ml-auto'><%= l comment.created_at %></p>
