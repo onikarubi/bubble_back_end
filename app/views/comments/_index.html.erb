@@ -3,25 +3,31 @@
     <div class="border border-primary mb-3 p-2">
       <div class="commet-heading d-flex align-items-center">
         <% if comment.user.image? %>
-        <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
+          <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
         <% else %>
-        <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
+          <%= image_tag comment.user.image.url, class: 'rounded-circle', style: 'width: 50px; height: 50px; object-fit: cover;' %>
         <% end %>
-
         <h5 class="text-success mx-2 mb-0"><%= comment.user.name %></h5>
         <p class='mb-0 ml-auto'><%= l comment.created_at %></p>
         <% if comment.user == current_user %>
-        <%= link_to '削除', book_comment_path(comment.book_id, comment.id), data: { confirm: '本当に削除してもよろしいですか？' }, remote: true,  method: :delete, class: 'btn-sm btn-danger ml-2' %>
+          <%= link_to '削除', book_comment_path(comment.book_id, comment.id), data: { confirm: '本当に削除してもよろしいですか？' }, remote: true,  method: :delete, class: 'btn-sm btn-danger ml-2' %>
+        <% end %>
+        <% if comment.user != current_user %>
+          <button class='btn-sm btn-primary ml-2 reply'>返信</button>
         <% end %>
       </div>
-
       <div class="comment-area">
         <% if comment.image? %>
           <%= image_tag comment.image.url, class: 'w-100', style: 'height: 600px; object-fit: cover;' %>
         <% end %>
-
         <p class='my-3'><%= simple_format comment.comment_content %></p>
       </div>
     </div>
   </div>
+  <script>
+    $(document).on('click', "#comment-<%= comment.id %> .reply", function () {
+      $('.comment_content').val('>> <%= comment.user.name %>\n')
+    })
+  </script>
 <% end %>
+<%= javascript_pack_tag 'reply.js' %>
