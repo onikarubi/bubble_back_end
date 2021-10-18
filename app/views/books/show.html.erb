@@ -9,13 +9,21 @@
         <%= image_tag @book.image.url, class: 'w-100', style: 'height: 600px; object-fit: cover;' %>
       <% end %>
     </div>
-    <h2 class='h2'><%= @book.title %></h2>
-    <div class="py-3 text-break" style='max-width: 100%; '>
-      <%= @book.description %>
+    <div class="book-heading">
+      <h2 class='h2'><%= @book.title %></h2>
+      <div class="py-3 text-break" style='max-width: 100%; '>
+        <%= @book.description %>
+      </div>
+
+        <div id="favo-btn_<%= @book.id %>">
+          <%= render partial: 'favorites/favorite', locals: { book: @book } %>
+        </div>
     </div>
   </div>
+
+
+  <h2>コメント一覧</h2>
   <div class="my-3 comments">
-    <h2>コメント一覧</h2>
     <div class="comments my-3">
       <%= render 'comments/index', comments: @comments %>
     </div>
