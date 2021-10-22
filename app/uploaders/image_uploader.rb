@@ -13,6 +13,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  def default_url(*args)
+    # images = ['game_arcade_controler.png', 'job_it_dokata.png', 'neochi_computer_woman.png', 'syokuji_computer.png', '7825492_p0_master1200.jpeg']
+    'syokuji_computer.png'
+  end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:
