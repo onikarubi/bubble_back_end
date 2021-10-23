@@ -1,0 +1,26 @@
+<%= render 'layouts/header' %>
+<div class="container my-4">
+  <div class="row py-3">
+    <% @books.each do |book| %>
+
+        <div class="col-md-4">
+          <div class="card my-2">
+            <% if book.image? %>
+              <%= image_tag book.image.url, class: 'card-img-top', style: "width: 100%; object-fit: cover;"%>
+            <% else %>
+              <%= image_tag 'no_image_square.jpeg', class: 'card-img-top' %>
+            <% end %>
+            <div class="card-body">
+              <h2 class='card-title text-truncate'><%= book.title %></h2>
+              <p class='card-text'><%= book.user.name %></p>
+              <div id="favo-btn_<%= book.id %>">
+                <%= render partial: 'favorites/favorite', locals: { book: book } %>
+              </div>
+              <p class='card-text text-truncate'><%= book.description %></p>
+              <%= link_to '', book_path(book), class: 'stretched-link' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

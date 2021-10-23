@@ -1,0 +1,49 @@
+<div class="container my-4">
+  <% if @book.user == current_user%>
+    <%= link_to 'edit_post', edit_book_path(@book), class: 'btn btn-success' %>
+  <% end %>
+  <%= link_to 'Go back', books_path, class: 'btn btn-warning' %>
+  <div class="py-3">
+    <div class="py-4">
+      <% if @book.image? %>
+        <%= image_tag @book.image.url, class: 'w-100', style: 'height: 600px; object-fit: cover;' %>
+      <% end %>
+    </div>
+    <div class="book-heading">
+      <h2 class='h2'><%= @book.title %></h2>
+      <div class="py-3 text-break" style='max-width: 100%; '>
+        <%= @book.description %>
+      </div>
+
+        <div id="favo-btn_<%= @book.id %>">
+          <%= render partial: 'favorites/favorite', locals: { book: @book } %>
+        </div>
+    </div>
+  </div>
+
+
+  <h2>コメント一覧</h2>
+  <div class="my-3 comments">
+    <div class="comments my-3">
+      <%= render 'comments/index', comments: @comments %>
+    </div>
+  </div>
+  <% if user_signed_in? %>
+    <%= form_with model: [@book, @comment], local: false do |f|  %>
+      <div class="form-group">
+        <%= f.label :comment_content, "comment_content" %>
+        <%= f.text_area :comment_content, class: 'form-control comment_content' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :image, "image" %>
+        <%= f.file_field :image, class: 'form-control-file' %>
+      </div>
+
+      <%= f.hidden_field :book_id, value: @book.id %>
+      <%= f.submit "comment_content", class: 'btn btn-success'%>
+    <% end %>
+  <% else %>
+    <%= link_to 'コメントする', new_user_session_path, class: 'btn-success w-100 d-block text-center', style: 'height: 50px; line-height: 50px' %>
+  <% end %>
+</div>
